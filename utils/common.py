@@ -6,8 +6,8 @@ def get_connection():
         host=os.environ.get("db_host") or 'localhost',
         port=os.environ.get("db_port") or '3306',
         database=os.environ.get("db_name") or 'task_assign_db2',
-        user=os.environ.get("root") or 'root',
-        password=os.environ.get("password") or 'password'
+        user=os.environ.get("db_user") or 'root',
+        password=os.environ.get("db_password") or 'password'
     )
     return connection
 
