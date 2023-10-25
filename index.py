@@ -9,6 +9,7 @@ CORS(app)
 
 @app.route("/")
 def get_data():
+    # gets the data of all users along with assigned task
     all_data=get_all_user_task_data()
     return {
         'all_data':all_data, 
@@ -17,7 +18,8 @@ def get_data():
 
 @app.route("/login/<int:id>")
 def login_user(id):
-    # login logic...
+    # login logic goes here...
+    # Once user logs in if user doesn't have any task assigned new task will be assigned
     user_has_task=check_user_has_task(id)
     if user_has_task==False:
         res=assign_task_to_user(id)
@@ -32,6 +34,7 @@ def login_user(id):
 
 @app.route("/task_finish/<int:task_id>/<int:user_id>")
 def task_finish_assign_new(task_id,user_id):
+    # Once the user finishes any task new task assigned to him immidiatly
     update_task_status=update_task_status_complete(task_id)
     if update_task_status==True:
         res=assign_task_to_user(user_id)
@@ -51,6 +54,7 @@ def task_finish_assign_new(task_id,user_id):
 
 @app.route("/reset_db")
 def reset_db_data():
+    #this api is written only demo frontend app and mysql database created, which removes all assigned task to user
     res=reset_all_tasks()
     if res:
         return {

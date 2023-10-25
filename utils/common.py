@@ -96,7 +96,7 @@ def check_user_has_task(id):
         if connection:
             connection.close()
 
-#this functionality just utilized for dem purpose
+#this functionality just utilized for demo purpose
 def reset_all_tasks():
     try:
         connection=get_connection()
