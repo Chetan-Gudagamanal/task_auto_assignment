@@ -8,6 +8,10 @@ app= Flask(__name__)
 CORS(app)
 
 @app.route("/")
+def welcome():
+    return 'welcome'
+
+@app.route("/get_all_user_data")
 def get_data():
     # gets the data of all users along with assigned task
     all_data=get_all_user_task_data()
@@ -16,7 +20,7 @@ def get_data():
         'status':200
     }
 
-@app.route("/login/<int:id>")
+@app.route("/login/<int:id>",methods=['POST'])
 def login_user(id):
     # login logic goes here...
     # Once user logs in if user doesn't have any task assigned new task will be assigned
@@ -32,7 +36,7 @@ def login_user(id):
         'data':[], 'message':"Login Successful", 'status':200
     }
 
-@app.route("/task_finish/<int:task_id>/<int:user_id>")
+@app.route("/task_finish/<int:task_id>/<int:user_id>",methods=['PUT'])
 def task_finish_assign_new(task_id,user_id):
     # Once the user finishes any task new task assigned to him immidiatly
     update_task_status=update_task_status_complete(task_id)
@@ -52,7 +56,7 @@ def task_finish_assign_new(task_id,user_id):
                 'data':{},'status':500
             }
 
-@app.route("/reset_db")
+@app.route("/reset_db",methods=['PUT'])
 def reset_db_data():
     #this api is written only demo frontend app and mysql database created, which removes all assigned task to user
     res=reset_all_tasks()
